@@ -7,7 +7,6 @@ import {Route} from 'react-router-dom';
 
 class App extends React.Component {
     state = {
-        showSearchPage: false,
         search: [],
         books: [],
         shelves: [
