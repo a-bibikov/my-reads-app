@@ -3,7 +3,7 @@ import './App.sass';
 import * as BooksAPI from './BooksAPI';
 import Shelves from "./components/Shelves";
 import Search from "./components/Search";
-import {Link, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 class App extends React.Component {
     state = {
