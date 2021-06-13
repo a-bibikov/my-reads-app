@@ -23,6 +23,10 @@ body
   width: 800px
   margin: 0 auto 40px
 
+  &__loading
+    font-size: 12px
+    margin: 20px
+
   &__list
     display: flex
     flex-wrap: wrap
@@ -87,12 +91,15 @@ body
     appearance: none
     width: 100%
     display: block
+
     &.currentlyReading
       background: #b3e0ff
       border-color: #b3e0ff
+
     &.wantToRead
       background: #fcdf1b
       border-color: #fcdf1b
+
     &.read
       background: #d7fece
       border-color: #d7fece
@@ -114,6 +121,9 @@ body
     box-sizing: border-box
     cursor: pointer
     text-align: center
+    display: block
+    text-decoration: none
+    color: #212430
 
   &__button
     position: fixed
@@ -126,6 +136,11 @@ body
     appearance: none
     background: #212430
     color: #ffffff
+    display: flex
+    text-decoration: none
+    justify-content: center
+    align-items: center
+    text-align: center
 
   &__input
     background: #fff

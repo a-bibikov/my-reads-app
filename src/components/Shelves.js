@@ -1,5 +1,6 @@
 import React from "react";
 import Shelf from "./Shelf";
+import {Link} from "react-router-dom";
 
 const Shelves = (props) => {
     return (
@@ -7,6 +8,7 @@ const Shelves = (props) => {
             {props.shelves.map((item) => {
                 return <Shelf key={item.title} shelf={item} changeShelf={props.changeShelf} />
             })}
+            <Link to="/search" className="search__button">Add a book</Link>
         </div>
     )
 };

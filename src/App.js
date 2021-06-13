@@ -3,6 +3,7 @@ import './App.sass';
 import * as BooksAPI from './BooksAPI';
 import Shelves from "./components/Shelves";
 import Search from "./components/Search";
+import {Link, Route} from 'react-router-dom';
 
 class App extends React.Component {
     state = {
@@ -64,19 +65,21 @@ class App extends React.Component {
     }
 
     searchBooks = async (str) => {
-        BooksAPI.search(str)
-            .then(res => {
-                if (!str) {
-                    return this.setState({
-                        search: []
-                    })
-                }
-                if (res) {
-                    this.setState({
-                        search: res
-                    })
-                }
-            })
+        if (str.length > 2) {
+            BooksAPI.search(str)
+                .then(res => {
+                    if (!str) {
+                        return this.setState({
+                            search: []
+                        })
+                    }
+                    if (res) {
+                        this.setState({
+                            search: res
+                        })
+                    }
+                })
+        }
     }
 
     clearSearch = () => {
@@ -98,10 +101,12 @@ class App extends React.Component {
         return (
             <div className="app">
                 <div className="app__title">My reads app</div>
-                {this.state.showSearchPage
-                    ? <Search searchBooks={this.searchBooks} clearSearch={this.clearSearch} books={this.state.search} changeShelf={this.changeShelf} shelves={this.state.shelves} />
-                    : <Shelves shelves={this.state.shelves} changeShelf={this.changeShelf} />}
-                <button className="search__button" onClick={() => this.setState({ showSearchPage: !this.state.showSearchPage })}>Add a book</button>
+                <Route path="/search">
+                    <Search searchBooks={this.searchBooks} clearSearch={this.clearSearch} books={this.state.search} changeShelf={this.changeShelf} shelves={this.state.shelves} />
+                </Route>
+                <Route path="/" exact>
+                    <Shelves shelves={this.state.shelves} changeShelf={this.changeShelf} />
+                </Route>
             </div>
         );
     }
