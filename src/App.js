@@ -2,6 +2,7 @@ import React from "react";
 import './App.sass';
 import * as BooksAPI from './BooksAPI';
 import Shelves from "./components/Shelves";
+import Search from "./components/Search";
 
 class App extends React.Component {
     state = {
@@ -12,6 +13,7 @@ class App extends React.Component {
          * pages, as well as provide a good URL they can bookmark and share.
          */
         showSearchPage: false,
+        search: [],
         books: [],
         shelves: [
             {
@@ -29,8 +31,9 @@ class App extends React.Component {
                 title: "Read",
                 items: []
             },
-        ]
+        ],
     }
+
     getData () {
         BooksAPI.getAll()
             .then(res => {
@@ -49,30 +52,56 @@ class App extends React.Component {
                 })
             })
     }
+
     getShelves (books, shelf) {
         return books.filter(value => value.shelf.toLowerCase() === shelf.toLowerCase())
     }
+
     changeShelf (book, shelf) {
         BooksAPI.update(book, shelf)
             .then(res => {
-                console.log(res)
             })
+    }
+
+    searchBooks = async (str) => {
+        BooksAPI.search(str)
+            .then(res => {
+                if (!str) {
+                    return this.setState({
+                        search: []
+                    })
+                }
+                if (res) {
+                    this.setState({
+                        search: res
+                    })
+                }
+            })
+    }
+
+    clearSearch = () => {
+        this.setState({
+            search: []
+        })
     }
 
     componentDidMount() {
         this.getData()
     }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState !== this.state) {
+            this.getData()
+        }
+    }
 
     render () {
-        // console.log('state', this.state)
-
         return (
             <div className="app">
                 <div className="app__title">My reads app</div>
                 {this.state.showSearchPage
-                    ? "Search"
+                    ? <Search searchBooks={this.searchBooks} clearSearch={this.clearSearch} books={this.state.search} changeShelf={this.changeShelf} shelves={this.state.shelves} />
                     : <Shelves shelves={this.state.shelves} changeShelf={this.changeShelf} />}
-                <button className="search__button" onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+                <button className="search__button" onClick={() => this.setState({ showSearchPage: !this.state.showSearchPage })}>Add a book</button>
             </div>
         );
     }

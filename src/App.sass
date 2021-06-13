@@ -77,7 +77,43 @@ body
         left: 0
         z-index: 1
 
+  &__action
+    padding: 8px
+    box-sizing: border-box
+    border: 1px solid #ddd
+    background: #eee
+    font-size: 12px
+    border-radius: 4px
+    appearance: none
+    width: 100%
+    display: block
+    &.currentlyReading
+      background: #b3e0ff
+      border-color: #b3e0ff
+    &.wantToRead
+      background: #fcdf1b
+      border-color: #fcdf1b
+    &.read
+      background: #d7fece
+      border-color: #d7fece
+
 .search
+  width: 800px
+  margin: 0 auto 40px
+
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin-left: -20px
+    margin-right: -20px
+
+  &__back
+    background: #eee
+    padding: 12px
+    border-radius: 4px
+    box-sizing: border-box
+    cursor: pointer
+    text-align: center
 
   &__button
     position: fixed
@@ -90,3 +126,22 @@ body
     appearance: none
     background: #212430
     color: #ffffff
+
+  &__input
+    background: #fff
+    border: 1px solid #ddd
+    padding: 16px
+    box-sizing: border-box
+    font-size: 16px
+    outline: none
+    border-radius: 4px
+    display: block
+    width: 100%
+
+  &__empty
+    background: #eee
+    margin: 20px
+    padding: 16px
+    border-radius: 4px
+    font-size: 12px
+    font-style: italic
